@@ -100,9 +100,9 @@ class Perlin {
 };
 
 
-void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height) {
+void encodeOneStep(const char* filename, const std::vector<unsigned char>& image, unsigned width, unsigned height) {
     //encode and save
-    unsigned error = lodepng::encode(filename, image, width, height,LCT_GREY);
+    unsigned error = lodepng::encode(filename, image, width, height,LCT_RGB);
 
     if (error) {
         std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
@@ -110,6 +110,39 @@ void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsi
         std::cout << "Success! Wrote PNG to " << filename << std::endl;
     }
 }
+
+class Image {
+    private:
+        int width;
+        int height;
+        int bytePerPixel;
+        int count;
+        std::vector<unsigned char> pixels;
+    public:
+    Image(int w, int h, int bpp = 1) {
+        width = w;
+        height = h;
+        count = 0;
+        pixels = std::vector<unsigned char>(width*height*bpp);
+        bytePerPixel = bpp;
+    }
+
+    void setPixel(int x, int y, unsigned char W) {
+        pixels.at(y*width + x) = W;
+        count ++;
+    }
+
+    void setPixel(int x, int y, unsigned char R, unsigned G, unsigned B) {
+        pixels.at((y*width + x)*3) = R;
+        pixels.at((y*width + x)*3 + 1) = G;
+        pixels.at((y*width + x)*3 + 2) = B;
+        count ++;
+    }
+
+    std::vector<unsigned char> getImage() {
+        return pixels;
+    }
+};
 
 double getNoise(Perlin p,double x, double y, int octaves, double persistence){
     	double total = 0;
@@ -134,16 +167,22 @@ int main() {
     image.resize(width * height); 
     std::srand(1);
     Perlin p = Perlin();
-    for (int i=0;i< width*height;i++){
+    Image img = Image(width,height,3);
+    for (int i=0;i< height;i++){
+        for (int j=0;j< width; j++) {
+            double scale = 20;
+            double x = i *scale ;
+            double y = j *scale ;
+            double noise = getNoise(p,x,y,7,0.5);
+            img.setPixel(i,j,noise*255,0,0);
 
-        double scale = 20;
-        double x = (i%1000) *scale ;        
-        double y = (i/1000) *scale ;          
-        double noise = getNoise(p,x,y,5,0.5);
-        //std::cout << noise << " " << r << " " << g << " " << b << std::endl;
-        image[i] = noise*255;
+        }
     }
-
-    encodeOneStep("output.png", image, width, height);
+    std::cout << img.getImage().size() << std::endl;
+    encodeOneStep("output.png", img.getImage(), width, height);
     return 0;
 }
+
+
+
+
