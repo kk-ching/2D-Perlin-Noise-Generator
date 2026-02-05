@@ -111,7 +111,7 @@ void encodeOneStep(const char* filename, const std::vector<unsigned char>& image
     }
 }
 
-class Image {
+class Img {
     private:
         int width;
         int height;
@@ -119,7 +119,7 @@ class Image {
         int count;
         std::vector<unsigned char> pixels;
     public:
-    Image(int w, int h, int bpp = 1) {
+    Img(int w, int h, int bpp = 1) {
         width = w;
         height = h;
         count = 0;
@@ -144,37 +144,35 @@ class Image {
     }
 };
 
-double getNoise(Perlin p,double x, double y, int octaves, double persistence){
-    	double total = 0;
-		double frequency = 0.0005;
-		double amplitude = 10.0;
-		double maxValue = 0;			
+double getNoise(Perlin p,double x, double y, int octaves, double persistence, double frequency, double amplitude, double lacunarity){			
+
+        double total = 0;
+        double maxValue = 0;
+
 		for(int i=0;i<octaves;i++) {
 			total += p.perline(x * frequency, y * frequency) * amplitude;
 			
 			maxValue += amplitude;
 			
 			amplitude *= persistence;
-			frequency *= 2;
+			frequency *= lacunarity;
 		}
 		
 		return total/maxValue;
 }
 
-int main() {
-    unsigned width = 1000, height = 1000;
+int generate(int width,int height, double octave, double persistence, double frequency, double amplitude,double lacunarity) {
     std::vector<unsigned char> image;
     image.resize(width * height); 
-    std::srand(1);
     Perlin p = Perlin();
-    Image img = Image(width,height,3);
+    Img img = Img(width,height,3);
     for (int i=0;i< height;i++){
         for (int j=0;j< width; j++) {
-            double scale = 20;
-            double x = i *scale ;
-            double y = j *scale ;
-            double noise = getNoise(p,x,y,7,0.5);
-            img.setPixel(i,j,noise*255,0,0);
+            //double scale = 20;
+            double x = i*20;
+            double y = j*20;
+            double noise = getNoise(p,x,y,(int)octave,persistence,frequency,amplitude,lacunarity);
+            img.setPixel(i,j,noise*255,noise*255,noise*255);
 
         }
     }
