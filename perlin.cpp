@@ -26,17 +26,15 @@ class Perlin {
     };
 
     int* p;
-    int repeat;
 
 
     public:
-    Perlin(int repeat = -1) {
+    Perlin() {
         p = new int[512];
 
         for(int i=0;i<512;i++){
             p[i] = permutation[i%256];
         }
-        this->repeat = repeat;
     }
 
     double perline(double x, double y) {
@@ -168,9 +166,8 @@ int generate(int width,int height, double octave, double persistence, double fre
     Img img = Img(width,height,3);
     for (int i=0;i< height;i++){
         for (int j=0;j< width; j++) {
-            //double scale = 20;
-            double x = i*20;
-            double y = j*20;
+            double x = i;
+            double y = j;
             double noise = getNoise(p,x,y,(int)octave,persistence,frequency,amplitude,lacunarity);
             img.setPixel(i,j,noise*255,noise*255,noise*255);
         }

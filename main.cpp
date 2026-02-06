@@ -85,7 +85,7 @@ int main()
             //sliders
             GuiSlider(Rectangle{ 88, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
             GuiSlider(Rectangle{ 88, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
-            GuiSlider(Rectangle{ 88, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.00001f, 0.001f);
+            GuiSlider(Rectangle{ 88, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.001f, 0.02f);
             GuiSlider(Rectangle{ 88, 184, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
             GuiSlider(Rectangle{ 88, 208, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
 
