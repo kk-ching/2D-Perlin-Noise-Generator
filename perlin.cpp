@@ -173,7 +173,6 @@ int generate(int width,int height, double octave, double persistence, double fre
             double y = j*20;
             double noise = getNoise(p,x,y,(int)octave,persistence,frequency,amplitude,lacunarity);
             img.setPixel(i,j,noise*255,noise*255,noise*255);
-
         }
     }
     std::cout << img.getImage().size() << std::endl;

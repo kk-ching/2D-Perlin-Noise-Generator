@@ -71,15 +71,15 @@ int main()
 
             // raygui: controls drawing
             //----------------------------------------------------------------------------------
-            generatePressed = GuiButton((Rectangle){ 320, 248, 120, 24 }, "Generate"); 
-            GuiSlider((Rectangle){ 80, 88, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1, 16);
-            if (GuiValueBox((Rectangle){ 80, 24, 120, 24 }, "WIDTH", &widthValue, 2, 1000, widthEditMode)) widthEditMode = !widthEditMode;
-            if (GuiValueBox((Rectangle){ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
-            GuiSlider((Rectangle){ 80, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0, 1);
-            GuiSlider((Rectangle){ 80, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5, 4);
-            GuiSlider((Rectangle){ 80, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.00001, 0.001);
-            GuiSlider((Rectangle){ 80, 224, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0, 1);
-            GuiLabel((Rectangle){ 224, 24, 120, 24 }, "SAMPLE TEXT");
+            generatePressed = GuiButton(Rectangle{ 320, 248, 120, 24 }, "Generate"); 
+            GuiSlider(Rectangle{ 80, 88, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
+            if (GuiValueBox(Rectangle{ 80, 24, 120, 24 }, "WIDTH", &widthValue, 2, 1000, widthEditMode)) widthEditMode = !widthEditMode;
+            if (GuiValueBox(Rectangle{ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
+            GuiSlider(Rectangle{ 80, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 80, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
+            GuiSlider(Rectangle{ 80, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.00001f, 0.001f);
+            GuiSlider(Rectangle{ 80, 224, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
+            GuiLabel(Rectangle{ 224, 24, 120, 24 }, "SAMPLE TEXT");
             //----------------------------------------------------------------------------------
 
         EndDrawing();
