@@ -11,7 +11,7 @@
 *   usage in any other form by expresely written permission.
 *
 **********************************************************************************************/
-
+#include "string"
 #include "raylib.h"
 
 #define RAYGUI_IMPLEMENTATION
@@ -72,14 +72,22 @@ int main()
             // raygui: controls drawing
             //----------------------------------------------------------------------------------
             generatePressed = GuiButton(Rectangle{ 320, 248, 120, 24 }, "Generate"); 
-            GuiSlider(Rectangle{ 80, 88, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
             if (GuiValueBox(Rectangle{ 80, 24, 120, 24 }, "WIDTH", &widthValue, 2, 1000, widthEditMode)) widthEditMode = !widthEditMode;
             if (GuiValueBox(Rectangle{ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
-            GuiSlider(Rectangle{ 80, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
-            GuiSlider(Rectangle{ 80, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
-            GuiSlider(Rectangle{ 80, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.00001f, 0.001f);
-            GuiSlider(Rectangle{ 80, 224, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
-            GuiLabel(Rectangle{ 224, 24, 120, 24 }, "SAMPLE TEXT");
+
+            //sliders
+            GuiSlider(Rectangle{ 88, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 88, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
+            GuiSlider(Rectangle{ 88, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.00001f, 0.001f);
+            GuiSlider(Rectangle{ 88, 184, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 88, 208, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
+
+            //slider values
+            GuiLabel(Rectangle{ 224, 112, 120, 24 }, std::to_string(persisValue).c_str());
+            GuiLabel(Rectangle{ 224, 136, 120, 24 }, std::to_string(lacunarityValue).c_str());
+            GuiLabel(Rectangle{ 224, 160, 120, 24 }, std::to_string(freqValue).c_str());
+            GuiLabel(Rectangle{ 224, 184, 120, 24 }, std::to_string(ampValue).c_str());
+            GuiLabel(Rectangle{ 224, 208, 120, 24 }, std::to_string(octaveValue).c_str());
             //----------------------------------------------------------------------------------
 
         EndDrawing();
