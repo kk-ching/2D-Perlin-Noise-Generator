@@ -11,7 +11,8 @@
 *   usage in any other form by expresely written permission.
 *
 **********************************************************************************************/
-#include "string"
+#include <string>
+#include <vector>
 #include "raylib.h"
 
 #define RAYGUI_IMPLEMENTATION
@@ -63,8 +64,12 @@ int main()
         // TODO: Implement required update logic
         //----------------------------------------------------------------------------------
         if(generatePressed){
-            generate(widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
-             printf("WIDTH: %d | HEIGHT: %d | OCTAVE: %f | Persistent: %f | FREQUENCY: %f | AMPLITUDE: %f | LACUNARITY: %f\n",widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
+            std::vector<unsigned char> array;
+            array = generate(widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
+            Image image = LoadImageRaw(reinterpret_cast<char *>(array.data()), widthValue, heightValue, PIXELFORMAT_UNCOMPRESSED_R8G8B8, 0);
+            Texture2D texture = LoadTextureFromImage(image);
+            DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2, WHITE);
+            //printf("WIDTH: %d | HEIGHT: %d | OCTAVE: %f | Persistent: %f | FREQUENCY: %f | AMPLITUDE: %f | LACUNARITY: %f\n",widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
         }
         // Draw
         //----------------------------------------------------------------------------------

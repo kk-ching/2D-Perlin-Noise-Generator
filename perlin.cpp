@@ -159,22 +159,19 @@ double getNoise(Perlin p,double x, double y, int octaves, double persistence, do
 		return total/maxValue;
 }
 
-int generate(int width,int height, double octave, double persistence, double frequency, double amplitude,double lacunarity) {
-    std::vector<unsigned char> image;
-    image.resize(width * height); 
+std::vector<unsigned char> generate(int width,int height, double octave, double persistence, double frequency, double amplitude,double lacunarity) {
     Perlin p = Perlin();
     Img img = Img(width,height,3);
     for (int i=0;i< height;i++){
         for (int j=0;j< width; j++) {
-            double x = i;
-            double y = j;
+            double x = j;
+            double y = i;
             double noise = getNoise(p,x,y,(int)octave,persistence,frequency,amplitude,lacunarity);
             img.setPixel(i,j,noise*255,noise*255,noise*255);
         }
     }
-    std::cout << img.getImage().size() << std::endl;
     encodeOneStep("output.png", img.getImage(), width, height);
-    return 0;
+    return img.getImage();
 }
 
 
