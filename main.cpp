@@ -47,6 +47,9 @@ int main()
     float lacunarityValue = 1.8f;
     float freqValue = 0.0005f;
     float ampValue = 1.0f;
+    int colorModeActive = 0;
+    bool alphaChecked = false;
+    bool colorModeEditMode = false;
     //----------------------------------------------------------------------------------
 
     SetTargetFPS(60);
@@ -71,7 +74,11 @@ int main()
 
             // raygui: controls drawing
             //----------------------------------------------------------------------------------
+
+            //buttons
             generatePressed = GuiButton(Rectangle{ 320, 248, 120, 24 }, "Generate"); 
+
+            //digit boxes
             if (GuiValueBox(Rectangle{ 80, 24, 120, 24 }, "WIDTH", &widthValue, 2, 1000, widthEditMode)) widthEditMode = !widthEditMode;
             if (GuiValueBox(Rectangle{ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
 
@@ -88,6 +95,12 @@ int main()
             GuiLabel(Rectangle{ 224, 160, 120, 24 }, std::to_string(freqValue).c_str());
             GuiLabel(Rectangle{ 224, 184, 120, 24 }, std::to_string(ampValue).c_str());
             GuiLabel(Rectangle{ 224, 208, 120, 24 }, std::to_string(octaveValue).c_str());
+
+            //checkboxes
+            GuiCheckBox(Rectangle{ 432, 32, 24, 24 }, "ALPHA", &alphaChecked);
+
+            //dropdown menus
+            if (GuiDropdownBox(Rectangle{ 288, 32, 120, 24 }, "GREY;RGB", &colorModeActive, colorModeEditMode)) colorModeEditMode = !colorModeEditMode;
             //----------------------------------------------------------------------------------
 
         EndDrawing();
