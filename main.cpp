@@ -13,7 +13,6 @@
 **********************************************************************************************/
 #include <string>
 #include <vector>
-#include "raylib.h"
 
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
@@ -35,6 +34,10 @@ int main()
     int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "main");
+
+    //persistent storages
+    std::vector<unsigned char> pixelData;
+    Texture2D noiseTexture = {0};
 
     // main: controls initialization
     //----------------------------------------------------------------------------------
@@ -64,11 +67,14 @@ int main()
         // TODO: Implement required update logic
         //----------------------------------------------------------------------------------
         if(generatePressed){
-            std::vector<unsigned char> array;
-            array = generate(widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
-            Image image = LoadImageRaw(reinterpret_cast<char *>(array.data()), widthValue, heightValue, PIXELFORMAT_UNCOMPRESSED_R8G8B8, 0);
-            Texture2D texture = LoadTextureFromImage(image);
-            DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2, WHITE);
+            pixelData = generate(widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
+            Image image = {0};
+            image.data = pixelData.data();
+            image.width = widthValue;
+            image.height = heightValue;
+            image.mipmaps = 1;
+            image.format = PIXELFORMAT_UNCOMPRESSED_R8G8B8;
+            noiseTexture = LoadTextureFromImage(image);
             //printf("WIDTH: %d | HEIGHT: %d | OCTAVE: %f | Persistent: %f | FREQUENCY: %f | AMPLITUDE: %f | LACUNARITY: %f\n",widthValue,heightValue,octaveValue,persisValue,freqValue,ampValue,lacunarityValue);
         }
         // Draw
@@ -76,7 +82,7 @@ int main()
         BeginDrawing();
 
             ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR))); 
-
+            DrawTexture(noiseTexture, screenWidth - noiseTexture.width, 0, WHITE);
             // raygui: controls drawing
             //----------------------------------------------------------------------------------
 

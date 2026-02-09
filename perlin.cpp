@@ -167,7 +167,7 @@ std::vector<unsigned char> generate(int width,int height, double octave, double 
             double x = j;
             double y = i;
             double noise = getNoise(p,x,y,(int)octave,persistence,frequency,amplitude,lacunarity);
-            img.setPixel(i,j,noise*255,noise*255,noise*255);
+            img.setPixel(j,i,noise*255,noise*255,noise*255);
         }
     }
     encodeOneStep("output.png", img.getImage(), width, height);
