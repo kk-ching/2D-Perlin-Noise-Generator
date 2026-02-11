@@ -54,6 +54,9 @@ int main()
     int colorModeActive = 0;
     bool alphaChecked = false;
     bool colorModeEditMode = false;
+
+    int imageSizeActive = 0;
+    bool imageSizeEditMode = false;
     //----------------------------------------------------------------------------------
 
     SetTargetFPS(60);
@@ -90,28 +93,33 @@ int main()
             generatePressed = GuiButton(Rectangle{ 320, 248, 120, 24 }, "Generate"); 
 
             //digit boxes
-            if (GuiValueBox(Rectangle{ 80, 24, 120, 24 }, "WIDTH", &widthValue, 2, 1000, widthEditMode)) widthEditMode = !widthEditMode;
-            if (GuiValueBox(Rectangle{ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
+            //if (GuiValueBox(Rectangle{ 80, 24, 120, 24 }, "WIDTH", &widthValue, 2, 1000, widthEditMode)) widthEditMode = !widthEditMode;
+            //if (GuiValueBox(Rectangle{ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
 
             //sliders
-            GuiSlider(Rectangle{ 88, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
-            GuiSlider(Rectangle{ 88, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
-            GuiSlider(Rectangle{ 88, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.001f, 0.02f);
-            GuiSlider(Rectangle{ 88, 184, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
-            GuiSlider(Rectangle{ 88, 208, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
+            GuiSlider(Rectangle{ 100, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 100, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
+            GuiSlider(Rectangle{ 100, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.001f, 0.02f);
+            GuiSlider(Rectangle{ 100, 184, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 100, 208, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
 
             //slider values
-            GuiLabel(Rectangle{ 224, 112, 120, 24 }, std::to_string(persisValue).c_str());
-            GuiLabel(Rectangle{ 224, 136, 120, 24 }, std::to_string(lacunarityValue).c_str());
-            GuiLabel(Rectangle{ 224, 160, 120, 24 }, std::to_string(freqValue).c_str());
-            GuiLabel(Rectangle{ 224, 184, 120, 24 }, std::to_string(ampValue).c_str());
-            GuiLabel(Rectangle{ 224, 208, 120, 24 }, std::to_string(octaveValue).c_str());
+            GuiLabel(Rectangle{ 246, 112, 120, 16 }, std::to_string(persisValue).c_str());
+            GuiLabel(Rectangle{ 246, 136, 120, 16 }, std::to_string(lacunarityValue).c_str());
+            GuiLabel(Rectangle{ 246, 160, 120, 16 }, std::to_string(freqValue).c_str());
+            GuiLabel(Rectangle{ 246, 184, 120, 16 }, std::to_string(ampValue).c_str());
+            GuiLabel(Rectangle{ 246, 208, 120, 16 }, std::to_string(octaveValue).c_str());
 
             //checkboxes
-            GuiCheckBox(Rectangle{ 432, 32, 24, 24 }, "ALPHA", &alphaChecked);
+            GuiCheckBox(Rectangle{ 430, 32, 24, 24 }, "ALPHA", &alphaChecked);
 
             //dropdown menus
-            if (GuiDropdownBox(Rectangle{ 288, 32, 120, 24 }, "GREY;RGB", &colorModeActive, colorModeEditMode)) colorModeEditMode = !colorModeEditMode;
+            if (GuiDropdownBox(Rectangle{ 300, 32, 120, 24 }, "GREY;RGB", &colorModeActive, colorModeEditMode)) colorModeEditMode = !colorModeEditMode;
+            if (GuiDropdownBox(Rectangle{ 100, 24, 120, 24 }, "2;4;8;16;32;64;128;256;512;1024;2048;4096", &imageSizeActive, imageSizeEditMode)) imageSizeEditMode = !imageSizeEditMode;
+
+            //dropdown menus descriptions
+            GuiLabel(Rectangle{ 0, 24, 100, 24 }, "IMAGE SIZE");
+            GuiLabel(Rectangle{ 228, 32, 120, 24 }, "COLOUR MODE");
             //----------------------------------------------------------------------------------
 
         EndDrawing();
