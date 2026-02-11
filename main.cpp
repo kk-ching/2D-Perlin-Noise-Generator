@@ -97,18 +97,11 @@ int main()
             //if (GuiValueBox(Rectangle{ 80, 48, 120, 24 }, "HEIGHT", &heightValue, 2, 1000, heightEditMode)) heightEditMode = !heightEditMode;
 
             //sliders
-            GuiSlider(Rectangle{ 100, 112, 120, 16 }, "PERSISTENT", NULL, &persisValue, 0.0f, 1.0f);
-            GuiSlider(Rectangle{ 100, 136, 120, 16 }, "LA", NULL, &lacunarityValue, 1.5f, 4.0f);
-            GuiSlider(Rectangle{ 100, 160, 120, 16 }, "FREQUENCY", NULL, &freqValue, 0.001f, 0.02f);
-            GuiSlider(Rectangle{ 100, 184, 120, 16 }, "AMPLITUDE", NULL, &ampValue, 0.0f, 1.0f);
-            GuiSlider(Rectangle{ 100, 208, 120, 16 }, "OCTAVE", NULL, &octaveValue, 1.0f, 16.0f);
-
-            //slider values
-            GuiLabel(Rectangle{ 246, 112, 120, 16 }, std::to_string(persisValue).c_str());
-            GuiLabel(Rectangle{ 246, 136, 120, 16 }, std::to_string(lacunarityValue).c_str());
-            GuiLabel(Rectangle{ 246, 160, 120, 16 }, std::to_string(freqValue).c_str());
-            GuiLabel(Rectangle{ 246, 184, 120, 16 }, std::to_string(ampValue).c_str());
-            GuiLabel(Rectangle{ 246, 208, 120, 16 }, std::to_string(octaveValue).c_str());
+            GuiSlider(Rectangle{ 100, 112, 120, 16 }, "PERSISTENT", std::to_string(persisValue).c_str(), &persisValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 100, 136, 120, 16 }, "LA", std::to_string(lacunarityValue).c_str(), &lacunarityValue, 1.5f, 4.0f);
+            GuiSlider(Rectangle{ 100, 160, 120, 16 }, "FREQUENCY", std::to_string(freqValue).c_str(), &freqValue, 0.001f, 0.02f);
+            GuiSlider(Rectangle{ 100, 184, 120, 16 }, "AMPLITUDE", std::to_string(ampValue).c_str(), &ampValue, 0.0f, 1.0f);
+            GuiSlider(Rectangle{ 100, 208, 120, 16 }, "OCTAVE", std::to_string(octaveValue).c_str(), &octaveValue, 1.0f, 16.0f);
 
             //checkboxes
             GuiCheckBox(Rectangle{ 430, 32, 24, 24 }, "ALPHA", &alphaChecked);
